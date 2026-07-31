@@ -1,0 +1,54 @@
+04000513
+00400593
+02058E63
+00050633
+000586B3
+02068463
+00062283
+00462303
+00534863
+00460613
+FFF68693
+FE0004E3
+00662023
+00562223
+FE0006E3
+FFF58593
+FC0004E3
+00000063
+
+// addi x10, x0, 64       # array base address
+// addi x11, x0, 4        # outer-loop count
+// 
+// sort_outer:
+// beq  x11, x0, sort_done
+// 
+// add  x12, x10, x0      # current array pointer
+// add  x13, x11, x0      # inner-loop count
+// 
+// sort_inner:
+// beq  x13, x0, next_pass
+// 
+// lw   x5, 0(x12)        # x5 = array[j]
+// lw   x6, 4(x12)        # x6 = array[j+1]
+// 
+// blt  x6, x5, swap      # swap if array[j+1] < array[j]
+// 
+// continue_inner:
+// addi x12, x12, 4       # move to next pair
+// addi x13, x13, -1
+// beq  x0, x0, sort_inner
+// 
+// swap:
+// sw   x6, 0(x12)
+// sw   x5, 4(x12)
+// beq  x0, x0, continue_inner
+// 
+// next_pass:
+// addi x11, x11, -1
+// beq  x0, x0, sort_outer
+// 
+// sort_done:
+// beq  x0, x0, sort_done
+// 
+// 
