@@ -1,0 +1,22 @@
+00500093
+00700113
+002081B3
+04000513
+00352023
+00052203
+00320463
+00100293
+0000006F
+
+//addi x1,  x0, 5       # x1  = 5
+//addi x2,  x0, 7       # x2  = 7
+//add  x3,  x1, x2      # x3  = 12
+//
+//addi x10, x0, 64      # x10 = data-memory address 64
+//sw   x3,  0(x10)      # Memory[64] = 12
+//lw   x4,  0(x10)      # x4 = Memory[64] = 12
+//
+//beq  x4,  x3, 8       # equal, skip the next instruction
+//addi x5,  x0, 1       # skipped, so x5 remains 0
+//
+//jal  x0,  0           # infinite loop

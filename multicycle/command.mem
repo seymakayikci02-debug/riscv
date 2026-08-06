@@ -1,0 +1,34 @@
+set CPU_ROOT /tb_Multi_Cycle_Core/dut
+
+proc add_module_group {group_name scope_path} {
+
+    set module_scope [get_scopes -quiet $scope_path]
+
+    if {[llength $module_scope] == 0} {
+        puts "WARNING: Scope not found: $scope_path"
+        return
+    }
+
+    set group_object [add_wave_group $group_name]
+
+    add_wave \
+        -into $group_object \
+        -recursive \
+        $module_scope
+
+    puts "Added: $scope_path"
+}
+
+
+add_module_group "01 Program Counter"       $CPU_ROOT/pc
+add_module_group "02 Instruction Memory"    $CPU_ROOT/ins_mem
+add_module_group "03 Register File"         $CPU_ROOT/rf
+add_module_group "04 ALU"                   $CPU_ROOT/alu
+add_module_group "05 Data Memory"           $CPU_ROOT/data_mem
+add_module_group "06 ALU Control Unit"      $CPU_ROOT/alu_ctrl_unit
+add_module_group "07 Immediate Generator"   $CPU_ROOT/imm_generator
+add_module_group "08 FSM_Multi_Control"     $CPU_ROOT/control
+add_module_group "09 mux2"                  $CPU_ROOT/mux2
+add_module_group "10 mux3"                  $CPU_ROOT/mux3
+add_module_group "11 mux4"                  $CPU_ROOT/mux4
+add_module_group "12 mux_jal"                  $CPU_ROOT/mux_jal
