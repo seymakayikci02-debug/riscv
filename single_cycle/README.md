@@ -33,7 +33,7 @@ The waveforms below were captured from a behavioral simulation testbench (`tb_Si
 
 **Full Behavioral Simulation** — end-to-end simulation run showing register updates over time as the test program executes.
 
-![Behavioral simulation waveform](images/behavioral_simulation.png)
+![Behavioral simulation waveform](images/single_cycle_simulation.png)
 
 ## Synthesis & Implementation Results
 
