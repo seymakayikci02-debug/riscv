@@ -25,7 +25,7 @@ The waveforms below were captured from a behavioral simulation testbench (`tb_Si
 
 **Program Counter & Instruction Fetch** — the PC advances by 4 each cycle (`0x00000004` → `0x00000008` → `0x0000000c` → …), correctly indexing into instruction memory and fetching the expected 32-bit instruction words.
 
-![PC and instruction memory waveform](images/pc_instruction_memory_waveform.png)
+![PC and instruction memory waveform](images/single_cycle_pc.png)
 
 **Register File Contents** — register values captured across the simulation, showing writes propagating correctly as instructions execute.
 
