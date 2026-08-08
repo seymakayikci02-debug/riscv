@@ -1,0 +1,101 @@
+00700293
+00502023
+00200293
+00502223
+00900293
+00502423
+00400293
+00502623
+00600293
+00502823
+00000513
+00500593
+123452B7
+00502C23
+00000317
+00602E23
+00C000EF
+00C02A23
+00000063
+00000613
+00058C63
+00052683
+00D60633
+00450513
+FFF58593
+FEDFF06F
+00008067
+
+
+ 
+// addi x5, x0, 7
+// sw   x5, 0(x0)
+// addi x5, x0, 2
+// sw   x5, 4(x0) 
+// addi x5, x0, 9
+// sw   x5, 8(x0)
+// addi x5, x0, 4
+// sw   x5, 12(x0) 
+// addi x5, x0, 6
+// sw   x5, 16(x0) 
+// addi x10, x0, 0       # x10 = array byte address
+// addi x11, x0, 5       # x11 = number of elements
+// lui  x5, 0x12345      # x5 = 0x12345000
+// sw   x5, 24(x0)       # data_mem[6] = 0x12345000
+
+// auipc x6, 0            # x6 = address of this AUIPC instruction
+// sw    x6, 28(x0)       # data_mem[7] = recorded code address
+ 
+// jal  x1, sum_array     # x1 = return address; PC = sum_array
+ 
+// # Execution returns here
+// sw   x12, 20(x0)       # data_mem[5] = calculated sum
+
+// done:
+// beq  x0, x0, done      # infinite loop
+
+// sum_array:
+// addi x12, x0, 0        # sum = 0
+ 
+// sum_loop:
+// beq  x11, x0, sum_return
+// 
+// lw   x13, 0(x10)       # load current array element
+// add  x12, x12, x13     # sum = sum + element
+// 
+// addi x10, x10, 4       # move to next 32-bit word
+// addi x11, x11, -1      # decrease remaining count
+// 
+// jal  x0, sum_loop      # unconditional jump; no return address
+
+// sum_return:
+// jalr x0, 0(x1)         # return to instruction after function call
+ 
+// after execution:
+// 
+// data_mem[0] = 7
+// data_mem[1] = 2
+// data_mem[2] = 9
+// data_mem[3] = 4
+// data_mem[4] = 6
+// data_mem[5] = 28
+// data_mem[6] = 0x12345000
+// data_mem[7] = 0x00000038
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
