@@ -25,19 +25,11 @@ A multi-cycle RISC-V (RV32I) processor core implemented in SystemVerilog and bui
 
 ### Datapath Schematic
 
-Full multi-cycle datapath: program counter, instruction memory, register file, ALU, data memory, immediate generator, ALU control unit, and the muxes that let each block be reused across different cycles of an instruction.
-
 ![Multi-cycle datapath schematic](images/design_schematic.png)
 
 ### Finite State Machine (Control Unit)
 
-The control unit is implemented as an FSM that sequences each instruction through the states it needs. `S0 Fetch` and `S1 Decode` are common to every instruction; from there the FSM branches by instruction type:
-
-- **S2 MemAdr → S6 Execute(R) / S8 Execute(I) → S7 ALUWB** — address/ALU computation for R-type and I-type ALU instructions, written back to the register file
-- **S2 MemAdr → S4 MemRead / S5 MemWrite → S6 MemWB** — load/store instructions, reading or writing data memory before write-back
-- **S3 JAL** and **S9 JALR** — jump instructions, computing the return address (`PC+4 → rd`) and the jump target
-- **S10 BEQ** — branch comparison and conditional PC update
-- **S9 LUI** — loads an upper immediate directly into `rd` (`rd = imm20 << 12`)
+`S0 Fetch` and `S1 Decode` are common to every instruction; from there the FSM branches by instruction type:
 
 Each state sets the relevant control signals (`ALUSrcA`, `ALUSrcB`, `IRWrite`, `PCWrite`, `PCUpdate`, `RegWrite`, `MemRead`, `MemWrite`, `ResultSrc`, `PCSrc`) for that cycle of execution.
 
@@ -45,7 +37,7 @@ Each state sets the relevant control signals (`ALUSrcA`, `ALUSrcB`, `IRWrite`, `
 
 ### Module Hierarchy
 
-Design source hierarchy as instantiated in Vivado, showing the core (`Multi_Cycle_Core`) and its submodules — program counter, instruction memory, register file, ALU, data memory, immediate generator, FSM control unit with its nested ALU control unit, and the 4-to-1 muxes used to steer data through the shared datapath.
+Design source hierarchy as instantiated in Vivado, showing the core (`Multi_Cycle_Core`) and its submodules
 
 ![Vivado module hierarchy](images/vivado_module.png)
 
@@ -75,7 +67,7 @@ Two test programs were used to validate the core, each targeting a different kin
 
 ### Test 1 — Battery-Pack Safety Monitor
 
-**Why this test:** this is the primary instruction-coverage test — one coherent program written to exercise almost every instruction category the core supports (signed/unsigned loads and stores of every width, immediate and register ALU ops, shifts, logical ops, both branch directions, both jump forms, and both upper-immediate forms) instead of testing instructions one at a time. It's framed as reading a sensor packet and deciding whether a battery pack is in a safe or alarm state, so the arithmetic isn't arbitrary — each instruction does a real part of that decision.
+  This is the primary instruction-coverage test — one coherent program written to exercise almost every instruction category the core supports (signed/unsigned loads and stores of every width, immediate and register ALU ops, shifts, logical ops, both branch directions, both jump forms, and both upper-immediate forms) instead of testing instructions one at a time. It's framed as reading a sensor packet and deciding whether a battery pack is in a safe or alarm state, so the arithmetic isn't arbitrary — each instruction does a real part of that decision.
 
 **What it does:** it loads a 4-field packet from data memory — signed temperature, unsigned status byte, signed current (read both as signed and unsigned to exercise both sign-extension paths), and voltage — scales the current, derives a "status signature" from the status bits, and combines everything into a diagnostic word. It then checks two alarm conditions (temperature below `-10 °C`, or status byte `≥ 128`) and branches to a normal-result path or an alarm path that tags the diagnostic with an `0xBAD0_0000` signature and sets an alarm flag. `AUIPC` records the running program address at the end, and `JAL`/`JALR` implement the call/return to the packet-processing routine.
 
@@ -107,9 +99,7 @@ Register file contents after execution — `x20 = BAD06C71` is the final alarm d
 
 ### Test 2 — Fibonacci Sequence Generator
 
-**Why this test:** a smaller, easier-to-verify complement to Test 1 — it checks arithmetic, memory writes, immediates, register updates, and a backward branch (loop) working together, confirming the datapath handles loop control correctly.
-
-**What it does:** the program generates the first ten Fibonacci numbers and stores them in data memory starting at byte address `0x40`, looping until all ten values are written.
+A smaller, easier-to-verify complement to Test 1 — it checks arithmetic, memory writes, immediates, register updates, and a backward branch (loop) working together, confirming the datapath handles loop control correctly.
 
 **Expected Data Memory Result**
 
