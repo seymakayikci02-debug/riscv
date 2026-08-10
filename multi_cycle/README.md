@@ -27,7 +27,7 @@ A multi-cycle RISC-V (RV32I) processor core implemented in SystemVerilog and bui
 
 Full multi-cycle datapath: program counter, instruction memory, register file, ALU, data memory, immediate generator, ALU control unit, and the muxes that let each block be reused across different cycles of an instruction.
 
-![Multi-cycle datapath schematic](images/design_schematic.jpg)
+![Multi-cycle datapath schematic](images/design_schematic.png)
 
 ### Finite State Machine (Control Unit)
 
@@ -41,7 +41,7 @@ The control unit is implemented as an FSM that sequences each instruction throug
 
 Each state sets the relevant control signals (`ALUSrcA`, `ALUSrcB`, `IRWrite`, `PCWrite`, `PCUpdate`, `RegWrite`, `MemRead`, `MemWrite`, `ResultSrc`, `PCSrc`) for that cycle of execution.
 
-![Multi-cycle FSM control diagram](images/design_fsm.jpg)
+![Multi-cycle FSM control diagram](images/design_fsm.png)
 
 ### Module Hierarchy
 
