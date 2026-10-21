@@ -9,7 +9,7 @@ A five-stage pipelined RISC-V (RV32I) processor core implemented in SystemVerilo
 ---
 
 ## Table of Contents
-
+ 
 - [Architecture](#architecture)
 - [Hazard Handling](#hazard-handling)
 - [Instruction Coverage](#instruction-coverage)

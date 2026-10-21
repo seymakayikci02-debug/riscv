@@ -258,3 +258,4 @@ The processor architecture and instruction encoding used in this project are bas
    Used as the architectural reference for the single-cycle datapath, register file, ALU, control logic, immediate generation, branch path, and processor organization.
 > The RISC-V ISA specification defines the required behavior of each instruction, while the Patterson and Hennessy architecture provides the basis for implementing those instructions in a single-cycle hardware datapath.
  
+ 

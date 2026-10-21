@@ -175,3 +175,4 @@ The processor architecture and instruction encoding used in this project are bas
    Used as the architectural reference for the multi-cycle datapath, FSM control unit design, register file, ALU, immediate generation, and instruction sequencing.
 
 > The RISC-V ISA specification defines the required behavior of each instruction, while the Patterson and Hennessy architecture provides the basis for sequencing those instructions through a multi-cycle hardware datapath under FSM control.
+ 
