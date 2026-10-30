@@ -8,7 +8,7 @@ module Instruction_Memory(
 logic [31:0] ROM [63:0];   
     
 initial begin       //executes one time 
-    $readmemh("battery_sensor_mem.mem",ROM); 
+    $readmemh("fib_bsearch_gcd.mem",ROM); 
 end   
        
 assign rd=ROM[a];

@@ -51,7 +51,7 @@ logic [4:0] EX_ALUControl  ;
 logic  EX_AluSrcA          ;  
 logic  EX_AluSrcB          ; 
 logic [31:0] EX_pc_q       ;
-
+logic EX_RegWrite          ;
 
 
 
@@ -71,7 +71,7 @@ logic [31:0] EX_Instr          ;
 
 logic [31:0] EX_BWire          ;
 logic [31:0] EX_AWire          ;
- 
+
 
 ///////////////MEMORY//////////////////
 //EXMEM
@@ -119,7 +119,7 @@ logic [31:0] EX_TargetAddrBase ;
 logic [31:0] EX_TargetAddr     ;
 logic [31:0] EX_PCPlusImm;
 
-
+//assign pc_q_out = IF_pc_q;  //Vivado preserves logic that contributes to observable outputs, rather than removing unused logic.
 
  ////////////////////////////////////////////////FETCH/////////////////////////////////////////////////////////////
 
@@ -412,14 +412,14 @@ always_ff@(posedge clk_i) begin
         EX_SrcB      <=  ID_SrcB      ; 
         EX_AluSrcA   <=  ID_AluSrcA   ; 
         EX_AluSrcB   <=  ID_AluSrcB   ; 
-        EX_ALUControl<=  ID_ALUControl; 
+       
         
-                                        
+        EX_ALUControl  <=  ID_ALUControl  ;                               
         EX_MemWrite  <=  ID_MemWrite  ; 
         EX_MemRead   <=  ID_MemRead   ; 
         EX_ImmExt    <=  ID_ImmExt    ; 
         EX_ResultSrc <=  ID_ResultSrc ; 
-        //EX_RegWrite  <=  ID_RegWrite  ; 
+        EX_RegWrite  <=  ID_RegWrite  ; 
         
         
         
@@ -429,7 +429,7 @@ always_ff@(posedge clk_i) begin
         MEM_SrcB     <=  EX_SrcB      ;
         MEM_MemRead  <=  EX_MemRead   ;         
         MEM_MemWrite <=  EX_MemWrite  ;         
-        //MEM_RegWrite <=  EX_RegWrite  ;
+        MEM_RegWrite <=  EX_RegWrite  ;
 
         MEM_LoadStoreControl<=EX_LoadStoreControl; 
         MEM_ALUResult       <=EX_ALUResult       ; 

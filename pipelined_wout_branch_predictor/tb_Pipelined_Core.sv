@@ -29,10 +29,10 @@ initial begin
     //   word  4: voltage            = 28000
     
     
-    dut.data_mem.data_mem[0][7 :0]=8'hec;
-    dut.data_mem.data_mem[0][15:8]=8'hA5;
-    dut.data_mem.data_mem[0][31:16]=16'hFED4;
-    dut.data_mem.data_mem[1]=32'd28000;
+    //dut.data_mem.data_mem[0][7 :0]=8'hec;
+    //dut.data_mem.data_mem[0][15:8]=8'hA5;
+    //dut.data_mem.data_mem[0][31:16]=16'hFED4;
+    //dut.data_mem.data_mem[1]=32'd28000;
     #10;
     rst_n = 1;
     
